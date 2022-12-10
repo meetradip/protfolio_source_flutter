@@ -49,7 +49,7 @@ class _MyAppState extends State<MyApp> {
             ],
           )),
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Riduan Rahman Radip',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),

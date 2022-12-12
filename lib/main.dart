@@ -4,12 +4,12 @@ import 'package:protfolio_us/pages/home_page.dart';
 
 import 'package:responsive_framework/responsive_framework.dart';
 
-import 'package:protfolio_us/pages/splash_screen.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:animated_splash_screen/animated_splash_screen.dart';
+//import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 void main() {
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  // WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(const MyApp());
 }
 
@@ -22,17 +22,17 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    initialized();
-  }
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   initialized();
+  // }
 
-  void initialized() async {
-    await Future.delayed(Duration(seconds: 2));
-    FlutterNativeSplash.remove();
-  }
+  // void initialized() async {
+  //   await Future.delayed(Duration(seconds: 2));
+  //   FlutterNativeSplash.remove();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,8 @@ class _MyAppState extends State<MyApp> {
             minWidth: 490,
             defaultScale: true,
             breakpoints: [
-              ResponsiveBreakpoint.autoScale(600, name: MOBILE),
+              ResponsiveBreakpoint.resize(600, name: MOBILE),
+              ResponsiveBreakpoint.resize(700, name: MOBILE),
               ResponsiveBreakpoint.autoScale(800, name: TABLET),
               ResponsiveBreakpoint.autoScale(1200, name: DESKTOP),
             ],
@@ -53,7 +54,12 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: home_page(),
+      home: AnimatedSplashScreen(
+          backgroundColor: Colors.black,
+          splashIconSize: 200,
+          duration: 1000,
+          splash: Image(image: AssetImage('assets/welcome_text.gif')),
+          nextScreen: home_page()),
     );
   }
 }

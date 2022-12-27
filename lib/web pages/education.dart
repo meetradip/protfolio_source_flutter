@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'package:timelines/timelines.dart';
 
@@ -10,25 +11,31 @@ class education extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Container(
+          margin: const EdgeInsets.only(left: 20),
+          decoration: const BoxDecoration(
+              border: Border(bottom: BorderSide(width: 2, color: Colors.red))),
+          child: Text(
+            'Education:',
+            style:
+                GoogleFonts.playfairDisplay(color: Colors.white, fontSize: 25),
+          ),
+        ),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                left: 19,
-              ),
-              child: SizedBox(
-                height: 150,
-                width: 20,
-                child: TimelineNode(
-                  endConnector: const SolidLineConnector(
-                    endIndent: 0.9,
-                    color: Colors.lightGreen,
-                  ),
-                  indicator: DotIndicator(
-                    color: Colors.redAccent.withOpacity(0.7),
-                  ),
+            Container(
+              height: 150,
+              width: 20,
+              margin: EdgeInsets.only(left: 19),
+              child: TimelineNode(
+                endConnector: const SolidLineConnector(
+                  endIndent: 0.9,
+                  color: Colors.lightGreen,
+                ),
+                indicator: DotIndicator(
+                  color: Colors.redAccent.withOpacity(0.7),
                 ),
               ),
             ),

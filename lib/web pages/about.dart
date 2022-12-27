@@ -10,9 +10,19 @@ class about extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
+          margin: const EdgeInsets.only(left: 30, top: 20, bottom: 20),
+          decoration: const BoxDecoration(
+              border: Border(bottom: BorderSide(width: 2, color: Colors.red))),
+          child: Text(
+            'About:',
+            style: GoogleFonts.playfairDisplay(
+                fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
+          ),
+        ),
+        Container(
           height: 80,
-          width: 490,
-          padding: const EdgeInsets.only(left: 8),
+          width: 500,
+          padding: const EdgeInsets.only(left: 25),
           child: Text(
             "Hi, I'm Riduan Rahman Radip, a passionate self-taught experienced flutter app developer and a freelance software developer from Bangladesh.",
             style: GoogleFonts.robotoSlab(shadows: [
@@ -27,7 +37,7 @@ class about extends StatelessWidget {
           height: 140,
           width: 490,
           padding: const EdgeInsets.only(
-            left: 8,
+            left: 25,
           ),
           child: Text(
             "My passion for software lies with dreaming up ideas and making them come true with elegant interfaces. I take great care in the experience, architecture, and code quality of the things I build."

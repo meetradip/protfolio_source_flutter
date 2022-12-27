@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
+
 import 'package:protfolio_us/pages/home_page.dart';
-
+import 'package:protfolio_us/responsive/responsive_layout.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:protfolio_us/web pages/web_page.dart';
 
-import 'package:animated_splash_screen/animated_splash_screen.dart';
-//import 'package:flutter_native_splash/flutter_native_splash.dart';
-
-void main() {
-  // WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+void main() async {
   runApp(const MyApp());
 }
 
@@ -21,45 +17,30 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  // This widget is the root of your application.
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   initialized();
-  // }
-
-  // void initialized() async {
-  //   await Future.delayed(Duration(seconds: 2));
-  //   FlutterNativeSplash.remove();
-  // }
-
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      builder: ((context, child) => ResponsiveWrapper.builder(
-            child,
-            maxWidth: 1200,
-            minWidth: 490,
-            defaultScale: true,
-            breakpoints: [
-              ResponsiveBreakpoint.resize(600, name: MOBILE),
-              ResponsiveBreakpoint.resize(700, name: MOBILE),
-              ResponsiveBreakpoint.autoScale(800, name: TABLET),
-              ResponsiveBreakpoint.autoScale(1200, name: DESKTOP),
-            ],
-          )),
-      debugShowCheckedModeBanner: false,
-      title: 'Riduan Rahman Radip',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: AnimatedSplashScreen(
-          backgroundColor: Colors.black,
-          splashIconSize: 200,
-          duration: 1000,
-          splash: Image(image: AssetImage('assets/welcome_text.gif')),
-          nextScreen: home_page()),
-    );
+    return MaterialApp(
+        builder: ((context, child) => ResponsiveWrapper.builder(
+              child,
+              maxWidth: 1200,
+              minWidth: 490,
+              defaultScale: true,
+              breakpoints: [
+                const ResponsiveBreakpoint.resize(600, name: MOBILE),
+                const ResponsiveBreakpoint.resize(700, name: MOBILE),
+                const ResponsiveBreakpoint.autoScale(800, name: TABLET),
+                const ResponsiveBreakpoint.autoScale(1200, name: DESKTOP),
+              ],
+            )),
+        debugShowCheckedModeBanner: false,
+        title: 'Riduan Rahman Radip',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: StreamBuilder(
+          builder: (context, snapshot) {
+            return responsive(Mobile: home_page(), web: web_page());
+          },
+        ));
   }
 }

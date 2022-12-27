@@ -1,36 +1,30 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:protfolio_us/pages/education.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:protfolio_us/pages/social_jd.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:protfolio_us/pages/carousel_slider.dart';
-import 'package:protfolio_us/pages/from.dart';
 import 'package:protfolio_us/pages/about.dart';
 import 'package:protfolio_us/pages/progressbar.dart';
 import 'package:protfolio_us/pages/tools.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:timelines/timelines.dart';
 import 'package:protfolio_us/pages/animated_text.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:protfolio_us/pages/hire_me.dart';
 
-class home_page extends StatelessWidget {
-  CarouselController buttonCarouselController = CarouselController();
-  final Uri _url = Uri.parse('https://flutter.dev');
-  Future<void> _launchUrl() async {
-    if (!await launchUrl(_url, mode: LaunchMode.externalApplication)) {
-      throw 'Could not launch $_url';
-    }
-  }
+class home_page extends StatefulWidget {
+  @override
+  State<home_page> createState() => _home_pageState();
+}
 
-  Future lunchemail(dynamic email) async {
-    final toEmail = 'unstablebengali@gmail.com';
-    final email = 'mailto:$toEmail}';
-    await lunchemail(email);
+class _home_pageState extends State<home_page> {
+  CarouselController buttonCarouselController = CarouselController();
+  late ScrollController _scrollController;
+
+  @override
+  void initState() {
+    // initialize scroll controllers
+    _scrollController = ScrollController();
+
+    super.initState();
   }
 
   @override
@@ -39,6 +33,7 @@ class home_page extends StatelessWidget {
         backgroundColor: Colors.black,
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
+          controller: _scrollController,
           child: Container(
             decoration: const BoxDecoration(
                 image: DecorationImage(
@@ -52,7 +47,6 @@ class home_page extends StatelessWidget {
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
                           children: [
@@ -72,14 +66,15 @@ class home_page extends StatelessWidget {
                               margin: const EdgeInsets.only(top: 80),
                               height: 30,
                               width: 30,
-                              decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                      image: AssetImage('assets/giphy1.gif'))),
+                              decoration: const BoxDecoration(),
+                              child: const Image(
+                                  image: AssetImage('assets/giphy1.gif')),
                             )
                           ],
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(top: 7, left: 20),
+                          padding: const EdgeInsets.only(
+                              top: 7, left: 20, bottom: 5),
                           child: Text(
                             "Riduan Rahman",
                             style: GoogleFonts.gruppo(
@@ -87,9 +82,6 @@ class home_page extends StatelessWidget {
                                 fontWeight: FontWeight.normal,
                                 color: Colors.white),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 5,
                         ),
                         Container(
                           margin: const EdgeInsets.only(left: 20),
@@ -112,17 +104,12 @@ class home_page extends StatelessWidget {
                         Container(
                           child: const social_Id(),
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
                       ],
-                    ),
-                    const SizedBox(
-                      width: 50,
                     ),
                     Container(
                         height: 200,
                         width: 150,
+                        margin: EdgeInsets.only(left: 50),
                         decoration: BoxDecoration(
                           border: Border.all(
                               color: Colors.white,
@@ -150,57 +137,40 @@ class home_page extends StatelessWidget {
                         )),
                   ],
                 ),
-                Row(children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(left: 20),
-                        decoration: const BoxDecoration(
-                            border: Border(
-                                bottom:
-                                    BorderSide(width: 2, color: Colors.red))),
-                        child: Text(
-                          'About:',
-                          style: GoogleFonts.playfairDisplay(
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Container(
-                        child: const about(),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(left: 20),
-                        decoration: const BoxDecoration(
-                            border: Border(
-                                bottom:
-                                    BorderSide(width: 2, color: Colors.red))),
-                        child: Text(
-                          'Education:',
-                          style: GoogleFonts.playfairDisplay(
-                              color: Colors.white, fontSize: 25),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      Container(
-                        child: const education(),
-                      )
-                    ],
-                  ),
-                ]),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Container(
+                      margin: const EdgeInsets.only(left: 20),
+                      decoration: const BoxDecoration(
+                          border: Border(
+                              bottom: BorderSide(width: 2, color: Colors.red))),
+                      child: Text(
+                        'About:',
+                        style: GoogleFonts.playfairDisplay(
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 20, bottom: 10),
+                      child: const about(),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(left: 20),
+                      decoration: const BoxDecoration(
+                          border: Border(
+                              bottom: BorderSide(width: 2, color: Colors.red))),
+                      child: Text(
+                        'Education:',
+                        style: GoogleFonts.playfairDisplay(
+                            color: Colors.white, fontSize: 25),
+                      ),
+                    ),
+                    Container(
+                      child: const education(),
+                    ),
                     Container(
                       margin:
                           const EdgeInsets.only(left: 20, top: 20, bottom: 20),
@@ -217,9 +187,6 @@ class home_page extends StatelessWidget {
                       margin: const EdgeInsets.only(left: 20),
                       child: const progress_bar(),
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
                     Container(
                       margin:
                           const EdgeInsets.only(left: 20, top: 20, bottom: 20),
@@ -235,46 +202,36 @@ class home_page extends StatelessWidget {
                     Container(
                       child: const tools(),
                     ),
-                    Column(
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.only(
-                              left: 20, top: 20, bottom: 20),
-                          decoration: const BoxDecoration(
-                              border: Border(
-                                  bottom: BorderSide(color: Colors.red))),
-                          child: Text(
-                            'My Projets:',
-                            style: GoogleFonts.merriweather(
-                                fontSize: 30, color: Colors.white),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Container(
-                          height: 200,
-                          child: const carousel_slider(),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                      ],
+                  ],
+                ),
+                Column(
+                  children: [
+                    Container(
+                      margin:
+                          const EdgeInsets.only(left: 20, top: 20, bottom: 20),
+                      decoration: const BoxDecoration(
+                          border:
+                              Border(bottom: BorderSide(color: Colors.red))),
+                      child: Text(
+                        'My Projets:',
+                        style: GoogleFonts.merriweather(
+                            fontSize: 30, color: Colors.white),
+                      ),
                     ),
-                    const SizedBox(
-                      height: 10,
+                    Container(
+                      height: 200,
+                      child: const carousel_slider(),
                     ),
                   ],
                 ),
                 Container(
+                  margin: EdgeInsets.only(top: 20),
                   child: hire_me(),
-                ),
-                const SizedBox(
-                  height: 20,
                 ),
                 Container(
                   height: 30,
                   width: double.infinity,
+                  margin: EdgeInsets.only(top: 20),
                   decoration: BoxDecoration(),
                   child: Center(
                     child: Text(
